@@ -4,7 +4,7 @@ import os
 
 from mopidy import config, ext
 
-__version__ = '2.5.0'
+__version__ = '2.4.0'
 
 
 class Extension(ext.Extension):
@@ -38,9 +38,11 @@ class Extension(ext.Extension):
     def factory(self, config, core):
         from tornado.web import RedirectHandler
         from .web import IndexHandler, StaticHandler
+        from .ampSettings import AmpSettings
         path = os.path.join(os.path.dirname(__file__), 'static')
         return [
             (r'/', RedirectHandler, {'url': 'index.html'}),
             (r'/(index.html)', IndexHandler, {'config': config, 'path': path}),
+            (r'/ampSettings', AmpSettings, {'config': config}),
             (r'/(.*)', StaticHandler, {'path': path})
         ]

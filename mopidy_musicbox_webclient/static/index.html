@@ -7,6 +7,7 @@
     <script type="text/javascript" src="vendors/jquery/jquery-1.12.0.min.js"></script>
     <script type="text/javascript" src="vendors/jquery_cookie/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/custom_scripting.js"></script>
+    <script type="text/javascript" src="js/amp_settings.js"></script>
 
     <link rel="stylesheet" type="text/css" href="vendors/jquery_mobile_flat_ui_theme/jquery.mobile.flatui.min.css"/>
     <link rel="icon" type="image/gif" href="images/icons/musicbox32.gif" />
@@ -77,6 +78,10 @@
                 <a href="#">
                 <span class="navtxt" id="toggletxt"> Fullscreen </span><i class="fa fa-desktop"></i></a>
         </li>
+        <li id="navAmpSettings" data-icon="false">
+            <a href="#settings" onclick="switchContent('settings' ); return false;">
+                <span class="navtxt">Amp Settings </span><i class="fa fa-cog"></i></a>
+        </li>
         <li id="navSettings" data-icon="false">
                 <a href="/settings/">
                 <span class="navtxt"> Settings </span><i class="fa fa-cog"></i></a>
@@ -87,9 +92,16 @@
         </li>
         <li data-icon="false">
             <div><!-- slider for volume -->
-                <a href="#" onclick="controls.doMute(); return false;"><span title="Toggle mute"><i id="mutebt" class="fa fa-volume-up"></i></span></a>
-                <label for="volumeslider" class="ui-hidden-accessible">Volume</label>
+                <label for="volumeslider" class="">Mopidy volume</label>
+                <a href="#" onclick="controls.doMute(); amp.mute(); return false;"><span title="Toggle mute"><i id="mutebt" class="fa fa-volume-up"></i></span></a>
                 <input id="volumeslider" data-highlight="true" name="volumeslider" data-mini="true" type="range" min="0"
+                       value="0" max="100"/>
+            </div>
+        </li>
+        <li data-icon="false">
+            <div><!-- slider for main volume -->
+                <label for="MainVolumeMenu" >Main volume</label>
+                <input id="MainVolumeMenu" data-highlight="true" class="amp-slider" name="mainvolumemenu" data-mini="true" type="range" min="0"
                        value="0" max="100"/>
             </div>
         </li>
@@ -327,6 +339,12 @@
                 <h4>System</h4>
             </div>
         </a>
+        <a href="#settings" onclick="switchContent('settings' ); return false;">
+            <div class="ui-block-a">
+                <i class="fa fa-cog"></i>
+                <h4>Amp Settings</h4>
+            </div>
+        </a>
 
     </div>
 </div>
@@ -353,26 +371,28 @@
 <!-- /nowplaying -->
 
 <div data-role="content" id="playlistspane" class="pane">
-    <div class="ui-grid-a">
-        <div class="ui-block-a">
-            <h4>Playlists</h4>
-        </div>
-        <div align="right" class="ui-block-b" data-role="controlgroup" data-type="horizontal">
-            <button class="btn" type="button" title="Refresh playlists" onclick="return controls.refreshPlaylists();">
-                <i class="fa fa-refresh"></i>
-            </button>
-        </div>
-    </div>
-    <div class="ui-grid-a pl-breakpoint">
-        <div class="ui-block-a scroll" id="playlistslistdiv">
-            <ul id="playlistslist" class="table"></ul>
-        </div>
-        <div class="ui-block-b scroll" id="playlisttracksdiv">
-            <div>
-                <ul class="table" id="playlisttracks"></ul>
+    <div class="nowPlaying_img"></div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <h4>Playlists</h4>
+            </div>
+            <div align="right" class="ui-block-b" data-role="controlgroup" data-type="horizontal">
+                <button class="btn" type="button" title="Refresh playlists" onclick="return controls.refreshPlaylists();">
+                    <i class="fa fa-refresh"></i>
+                </button>
             </div>
         </div>
-    </div>
+        <div class="ui-grid-a pl-breakpoint">
+            <div class="ui-block-a scroll" id="playlistslistdiv">
+                <ul id="playlistslist" class="table"></ul>
+            </div>
+            <div class="ui-block-b scroll" id="playlisttracksdiv">
+                <div>
+                    <ul class="table" id="playlisttracks"></ul>
+                </div>
+            </div>
+        </div>
+    <!--</div>-->
 </div>
 <!--/playlistspane-->
 
@@ -510,6 +530,286 @@
     </div>
 </div>
 
+
+<!--amp settings-->
+<div data-role="content" class="pane" id="settingspane">
+    <h2>Amplifier Settings</h2>
+
+    <div class="ui-grid-a ui-responsive">
+        <div class="ui-block-b">
+            <div class="ui-grid-a ui-responsive ampsettingsrows">
+                <a href="#Volumes" onclick="swthchAmpSettings('#ampSettigsVolumes' ); return false;">
+                    <div><h4>Volumes</h4></div>
+                </a>
+            </div>
+            <div id="ampSettigsVolumes" class="ampSettigsOptions">
+                <label for="VolumesSoftStep" class="">Volumes SoftStep </label>
+                <input id="VolumesSoftStep" class="amp-checkbox" data-highlight="true" name="VolumesSoftStep" data-mini="true" type="checkbox"/>
+
+                <label for="MainVolume" class="">Main Volume</label>
+                <input id="MainVolume" class="amp-slider" data-highlight="true" name="MainVolume" data-mini="true" type="range" min="0" value="0" max="100"/>
+
+                <label for="LFSpeakerVolume" class="">Front Left Volume</label>
+                <input id="LFSpeakerVolume" class="amp-slider" data-highlight="true" name="LFSpeakerVolume" data-mini="true" type="range" min="0" value="0" max="100"/>
+
+                <label for="RFSpeakerVolume" class="">Front Right Volume</label>
+                <input id="RFSpeakerVolume" class="amp-slider" data-highlight="true" name="RFSpeakerVolume" data-mini="true" type="range" min="0" value="0" max="100"/>
+
+                <label for="LRSpeakerVolume" class="">Rear Left Volume</label>
+                <input id="LRSpeakerVolume" class="amp-slider" data-highlight="true" name="LRSpeakerVolume" data-mini="true" type="range" min="0" value="0" max="100"/>
+
+                <label for="RRSpeakerVolume" class="">Rear Right Volume</label>
+                <input id="RRSpeakerVolume" class="amp-slider" data-highlight="true" name="RRSpeakerVolume" data-mini="true" type="range" min="0" value="0" max="100"/>
+            </div>
+        </div>
+
+        <div class="ui-block-b">
+            <div class="ui-grid-a ui-responsive ampsettingsrows">
+                <a href="#Inputs" onclick="swthchAmpSettings('#ampSettigsInputs' ); return false;">
+                    <div><h4>Inputs</h4></div>
+                </a>
+            </div>
+            <div id="ampSettigsInputs" class="ampSettigsOptions">
+                <label for="MainSource" class="">Main input</label>
+                <select id="MainSource" class="amp-select" data-highlight="true" name="MainSource" data-mini="true">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label for="MainSourceGain" class="">Main Selector Input Gain:</label>
+                <input id="MainSourceGain" class="amp-slider" data-highlight="true" name="MainSourceGain" data-mini="true" type="range" min="0" value="0" max="15"/>
+                <!--<label for="mainInputAutoZero" class="">Main Volume Zero </label>-->
+                <!--<input id="mainInputAutoZero" data-highlight="true" name="mainInputAutoZero" data-mini="true" type="checkbox"/>-->
+
+                <label for="SecondSource" class="">Second input</label>
+                <select id="SecondSource" class="amp-select" data-highlight="true" name="SecondSource" data-mini="true">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label for="SecondSourceGain" class="">Second Selector Input Gain:</label>
+                <input id="SecondSourceGain" class="amp-slider" data-highlight="true" name="SecondSourceGain" data-mini="true" type="range" min="0" value="0" max="15"/>
+                <!--<label for="secondInputAutoZero" class="">Second Volume Zero </label>-->
+                <!--<input id="secondInputAutoZero" data-highlight="true" name="secondInputAutoZero" data-mini="true" type="checkbox"/>-->
+                <label for="SecondSourceRearSource" class="">Use Second Source to Rear </label>
+                <input id="SecondSourceRearSource" class="amp-checkbox" data-highlight="true" name="SecondSourceRearSource" data-mini="true" type="checkbox"/>
+            </div>
+        </div>
+
+        <div class="ui-block-b">
+            <div class="ui-grid-a ui-responsive ampsettingsrows">
+                <a href="#Eq" onclick="swthchAmpSettings('#ampSettigsEq' ); return false;">
+                    <div><h4>EQ</h4></div>
+                </a>
+            </div>
+            <div id="ampSettigsEq" class="ampSettigsOptions">
+                <h5>Treble:</h5>
+                <label for="Treble" class="">Treble Gain:</label>
+                <input id="Treble" class="amp-slider" data-highlight="true" name="Treble" data-mini="true" type="range" min="0" value="0" max="15"/>
+                <label for="TrebleCenterFreq" class="">Treble Center Frequency:</label>
+                <select id="TrebleCenterFreq" class="amp-select" data-highlight="true" name="TrebleCenterFreq" data-mini="true">
+                    <option value="0">10.0 KHz</option>
+                    <option value="1">12.5 KHz</option>
+                    <option value="2">15.0 KHz</option>
+                    <option value="3">17.5 KHz</option>
+                </select>
+                <label for="TrebleReferenceOutput" class="">Treble Soft Step </label>
+                <input id="TrebleReferenceOutput" class="amp-checkbox" data-highlight="true" name="TrebleReferenceOutput" data-mini="true" type="checkbox"/>
+
+                <h5>Middle:</h5>
+                <label for="Middle" class="">Middle Gain:</label>
+                <input id="Middle" class="amp-slider" data-highlight="true" name="Middle" data-mini="true" type="range" min="0" value="0" max="15"/>
+                <label for="MiddleQFactor" class="">Middle Q Factor:</label>
+                <select id="MiddleQFactor" class="amp-select" data-highlight="true" name="MiddleQFactor" data-mini="true">
+                    <option value="0">0.5</option>
+                    <option value="1">0.75</option>
+                    <option value="2">1</option>
+                    <option value="3">1.25</option>
+                </select>
+                <label for="MiddleSoftStep" class="">Middle Soft Step:</label>
+                <input id="MiddleSoftStep" class="amp-checkbox" data-highlight="true" name="MiddleSoftStep" data-mini="true" type="checkbox"/>
+
+                <h5>Bass:</h5>
+                <label for="Bass" class="">Bass Gain:</label>
+                <input id="Bass" class="amp-slider" data-highlight="true" name="Bass" data-mini="true" type="range" min="0" value="0" max="15"/>
+                <label for="BassQFactor" class="">Bass Q Factor:</label>
+                <select id="BassQFactor" class="amp-select" data-highlight="true" name="BassQFactor" data-mini="true">
+                    <option value="0">0.5</option>
+                    <option value="1">0.75</option>
+                    <option value="2">1</option>
+                    <option value="3">1.25</option>
+                </select>
+                <label for="BassSoftStep" class="">Bass Soft Step:</label>
+                <input id="BassSoftStep" class="amp-checkbox" data-highlight="true" name="BassSoftStep" data-mini="true" type="checkbox"/>
+            </div>
+        </div>
+
+        <div class="ui-block-b">
+            <div class="ui-grid-a ui-responsive ampsettingsrows">
+                <a href="#Loudness" onclick="swthchAmpSettings('#ampSettigsLoudness' ); return false;">
+                    <div><h4>Loudness</h4></div>
+                </a>
+            </div>
+            <div id="ampSettigsLoudness" class="ampSettigsOptions">
+                <label for="Loudness" class="">Loudness Gain:</label>
+                <input id="Loudness" class="amp-slider" data-highlight="true" name="Loudness" data-mini="true" type="range" min="0" value="0" max="100"/>
+                <label for="LoudnessFreq" class="">Loudness Center Frequency:</label>
+                <select id="LoudnessFreq" class="amp-select" data-highlight="true" name="LoudnessFreq" data-mini="true">
+                    <option value="0">Flat</option>
+                    <option value="1">400 HZ</option>
+                    <option value="2">800 HZ</option>
+                    <option value="3">2400 Hz</option>
+                </select>
+                <label for="LoudnessBoost" class="">Loudness High Boost:</label>
+                <input id="LoudnessBoost" class="amp-checkbox" data-highlight="true" name="LoudnessBoost" data-mini="true" type="checkbox"/>
+                <label for="LoudnessSoftStep" class="">Loudness Soft Step:</label>
+                <input id="LoudnessSoftStep" class="amp-checkbox" data-highlight="true" name="LoudnessSoftStep" data-mini="true" type="checkbox"/>
+            </div>
+        </div>
+
+        <div class="ui-block-b">
+            <div class="ui-grid-a ui-responsive ampsettingsrows">
+                <a href="#SoftMute" onclick="swthchAmpSettings('#ampSettigsSoftMute' ); return false;">
+                    <div><h4>Soft Mute</h4></div>
+                </a>
+            </div>
+            <div id="ampSettigsSoftMute" class="ampSettigsOptions">
+                <label for="SoftMuteEnable" class="">Soft Mute:</label>
+                <input id="SoftMuteEnable" class="amp-checkbox" data-highlight="true" name="SoftMuteEnable" data-mini="true" type="checkbox"/>
+                <label for="SoftMuteTime" class="">Soft Mute Time:</label>
+                <select id="SoftMuteTime" class="amp-select" data-highlight="true" name="SoftMuteTime" data-mini="true">
+                    <option value="0">0.48 ms</option>
+                    <option value="1">0.96 ms</option>
+                    <option value="2">123 ms</option>
+                </select>
+                <label for="SoftMuteTimeStep" class="">Soft Step Time:</label>
+                <select id="SoftMuteTimeStep" class="amp-select" data-highlight="true" name="SoftMuteTimeStep" data-mini="true">
+                    <option value="0">0.160 ms</option>
+                    <option value="1">0.321 ms</option>
+                    <option value="2">0.642 ms</option>
+                    <option value="3">1.28 ms</option>
+                    <option value="4">2.56 ms</option>
+                    <option value="5">5.12 ms</option>
+                    <option value="6">10.24 ms</option>
+                    <option value="7">20.48 ms</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="ui-block-b">
+            <div class="ui-grid-a ui-responsive ampsettingsrows">
+                <a href="#Mixing" onclick="swthchAmpSettings('#ampSettigsMixing' ); return false;">
+                    <div><h4>Mixing</h4></div>
+                </a>
+            </div>
+            <div id="ampSettigsMixing" class="ampSettigsOptions">
+                <label for="MixLevelEnable" class="">Mixing Enable:</label>
+                <input id="MixLevelEnable" class="amp-checkbox" data-highlight="true" name="MixLevelEnable" data-mini="true" type="checkbox"/>
+                <label for="MixLevelLFS" class="">Mix to Left Front:</label>
+                <input id="MixLevelLFS" class="amp-checkbox" data-highlight="true" name="MixLevelLFS" data-mini="true" type="checkbox"/>
+                <label for="MixLevelRFS" class="">Mix to Right Front:</label>
+                <input id="MixLevelRFS" class="amp-checkbox" data-highlight="true" name="MixLevelRFS" data-mini="true" type="checkbox"/>
+                <label for="MixLevel" class="">Mixing Gain:</label>
+                <input id="MixLevel" class="amp-slider" data-highlight="true" name="MixLevel" data-mini="true" type="range" min="0" value="0" max="100"/>
+                <!--<label for="mixingSoftStep" class="">Mixing Soft Step:</label>-->
+                <!--<input id="mixingSoftStep" data-highlight="true" name="mixingSoftStep" data-mini="true" type="checkbox"/>-->
+            </div>
+        </div>
+
+        <div class="ui-block-b">
+            <div class="ui-grid-a ui-responsive ampsettingsrows">
+                <a href="#SubWoofer" onclick="swthchAmpSettings('#ampSettigsSubwoofer' ); return false;">
+                    <div><h4>Subwoofer</h4></div>
+                </a>
+            </div>
+            <div id="ampSettigsSubwoofer" class="ampSettigsOptions">
+                <label for="MixLevelSubEnable" class="">Subwoofer Enable:</label>
+                <input id="MixLevelSubEnable" class="amp-checkbox" data-highlight="true" name="MixLevelSubEnable" data-mini="true" type="checkbox"/>
+                <label for="SubSetupCutFreq" class="">Subwoofer Cut-off Frequency:</label>
+                <select id="SubSetupCutFreq" class="amp-select" data-highlight="true" name="SubSetupCutFreq" data-mini="true">
+                    <option value="0">Flat</option>
+                    <option value="1">80 Hz</option>
+                    <option value="2">120 Hz</option>
+                    <option value="3">160 Hz</option>
+                </select>
+                <label for="SubSetupMiddleFreq" class="">Middle Center Frequency:</label>
+                <select id="SubSetupMiddleFreq" class="amp-select" data-highlight="true" name="SubSetupMiddleFreq" data-mini="true">
+                    <option value="0">500 Hz</option>
+                    <option value="1">1000 Hz</option>
+                    <option value="2">1500 Hz</option>
+                    <option value="3">2500 Hz</option>
+                </select>
+                <label for="SubSetupBassFreq" class="">Bass Center Frequency:</label>
+                <select id="SubSetupBassFreq" class="amp-select" data-highlight="true" name="SubSetupBassFreq" data-mini="true">
+                    <option value="0">60 Hz</option>
+                    <option value="1">80 Hz</option>
+                    <option value="2">100 Hz</option>
+                    <option value="3">200 Hz</option>
+                </select>
+                <label for="SubSetupDcMode" class="">Bass DC Mode:</label>
+                <input id="SubSetupDcMode" class="amp-checkbox" data-highlight="true" name="SubSetupDcMode" data-mini="true" type="checkbox"/>
+                <label for="SubSetupSmooth" class="">Smoothing Filter:</label>
+                <input id="SubSetupSmooth" class="amp-checkbox" data-highlight="true" name="SubSetupSmooth" data-mini="true" type="checkbox"/>
+
+            </div>
+        </div>
+
+         <div class="ui-block-b">
+            <div class="ui-grid-a ui-responsive ampsettingsrows">
+                <a href="#ampMisc" onclick="swthchAmpSettings('#ampSettigsMisc' ); return false;">
+                    <div><h4>Misc</h4></div>
+                </a>
+            </div>
+            <div id="ampSettigsMisc" class="ampSettigsOptions">
+                <label for="SpectrumRun" class="">Spectrum Analizer Run:</label>
+                <input id="SpectrumRun" class="amp-checkbox" data-highlight="true" name="ampSpectrumRun" data-mini="true" type="checkbox"/>
+                <label for="SpectrumQFactor" class="">Spectrum Analizer Q Factor:</label>
+                <select id="SpectrumQFactor" class="amp-select" data-highlight="true" name="ampSpectrumQFactor" data-mini="true">
+                    <option value="0">3.5</option>
+                    <option value="1">1.75</option>
+                </select>
+                <label for="SpectrumSource" class="">Spectrum Analizer Source:</label>
+                <select id="SpectrumSource" class="amp-select" data-highlight="true" name="ampSpectrumSource" data-mini="true">
+                    <option value="0">Bass</option>
+                    <option value="1">Gain</option>
+                </select>
+                <label for="ChipReset" class="">Chip Reset:</label>
+                <select id="ChipReset" class="amp-select" data-highlight="true" name="ampChipReset" data-mini="true">
+                    <option value="0">On</option>
+                    <option value="1">Off</option>
+                </select>
+                <label for="ChipResetMode" class="">Reset Mode:</label>
+                <select id="ChipResetMode" class="amp-select" data-highlight="true" name="ampChipResetMode" data-mini="true">
+                    <option value="0">On</option>
+                    <option value="1">Off</option>
+                </select>
+                <label for="ChipClockSource" class="">Chip Clock Source:</label>
+                <select id="ChipClockSource" class="amp-select" data-highlight="true" name="ampChipClockSource" data-mini="true">
+                    <option value="0">Internal</option>
+                    <option value="1">External</option>
+                </select>
+                <label for="CouplingMode" class="">Coupling Mode:</label>
+                <select id="CouplingMode" class="amp-select" data-highlight="true" name="ampCouplingMode" data-mini="true">
+                    <option value="0">DC Coupling(without DSO)</option>
+                    <option value="1">AC Coupling after In Gain</option>
+                    <option value="2">DC Coupling(with DSO)</option>
+                    <option value="3">Ac Coupling after Bass</option>
+                </select>
+                <label for="GainEffectForDso" class="">Gain Effect for DSO Filter:</label>
+                <input id="GainEffectForDso" class="amp-slider" data-highlight="true" name="ampGainEffectForDso" data-mini="true" type="range" min="0" value="0" max="11"/>
+            </div>
+         </div>
+    </div>
+</div>
+
+<!--amp settings end-->
+
 <div data-role="footer" data-tap-toggle="false" data-position="fixed" id="normalFooter">
     <div class="footerControls">
         <div class="songinfo" id="songinfo">
@@ -519,8 +819,10 @@
                 <div id="infoartist"></div>
             </div>
         </div>
-        <div class="playicon">
+        <div class="playicon" style="float: left;">
+            <a href="#" onclick="controls.doPrevious(); return false"><span id="btprevGeneral" title="Previous"><i class="fa fa-fast-backward"></i></span></a>
             <a href="#" onclick="controls.doPlay(); return false"><span id="btplay" title="Play"><i class="fa fa-play"></i></span></a>
+            <a href="#" onclick="controls.doNext(); return false"><span id="btnextGeneral" title="Next"><i class="fa fa-fast-forward"></i></span></a>
         </div>
     </div>
 </div>
@@ -561,5 +863,11 @@
 <script type="text/javascript" src="js/images.js"></script>
 
 <script type="text/javascript" src="js/gui.js"></script>
+<script type="text/javascript">
+    var amp = ampControl;
+    $(document).ready(function (event) {
+        amp.bindEvents();
+    });
+</script>
 </body>
 </html>

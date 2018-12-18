@@ -502,6 +502,10 @@
                 $('#btplay').attr('title', 'Pause')
                 mopidy.playback.getTimePosition().then(processCurrentposition, console.error)
                 syncedProgressTimer.start()
+                //?????
+                if ($('`').val() != 2) {
+                    amp.sendSelect('MainSource', 2)
+                }
             } else {
                 $('#btplayNowPlaying >i').removeClass('fa-pause').addClass('fa-play')
                 $('#btplayNowPlaying').attr('title', 'Play')
@@ -516,7 +520,11 @@
         doPlay: function () {
             toast('Please wait...', 250)
             if (!play) {
-                mopidy.playback.play()
+                mopidy.playback.play();
+                //?????
+                if ($('#MainSource').val() != 2) {
+                    amp.sendSelect('MainSource', 2)
+                }
             } else {
                 if (isStreamUri(songdata.track.uri)) {
                     mopidy.playback.stop()

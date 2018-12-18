@@ -139,6 +139,7 @@
                 var uri = Object.keys(imageResults)[0]
                 if (imageResults[uri].length > 0) {
                     $(img_element).attr('src', imageResults[uri][0].uri)
+                    $('.nowPlaying_img').css('background-image', 'url("' + imageResults[uri][0].uri + '")');
                 } else {
                     // Also check deprecated 'album.images' in case backend does not
                     // implement mopidy.library.getImages yet...

@@ -177,8 +177,44 @@ span.hostInfo {
  *  Pages, content  *
  ********************/
 #page {
-    background-color: #fff;
+   /* background-color: #fff;*/
+/*    background:
+        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+        background-color: #131313;
+        background-size: 25px 25px;*/
 }
+.ui-panel-content-wrap{
+    /*background-size:cover;*/
+/*    background-size: 100% auto;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-clip: padding-box;*/
+    /* Full height */
+    /*height: 100%;*/
+
+    /* Create the parallax scrolling effect */
+/*    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/
+}
+/*.parallax {
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-position: 0 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}*/
 
 #searchartists {
     display: none;
@@ -198,6 +234,18 @@ span.hostInfo {
 #artistspane,
 #streampane {
     display: none;
+}
+
+.nowPlaying_img {
+/*    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% auto;
+    width: 100%;*/
+    min-height: 100%;
+    background-size: cover;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 #artistviewimage,
@@ -231,6 +279,23 @@ span.hostInfo {
     width: initial !important;
 }
 
+/******************
+ *  amp settings  *
+ *****************/
+
+.ampsettingsrows div {
+    text-align: center;
+    background-color: #2C3E50;
+    padding: 2px;
+    padding-top: 2px;
+    border: 2px solid white;
+    color: white;
+}
+
+.ampsettingsrows div i {
+    font-size: 28px;
+}
+
 /***************
  *  listviews  *
  ***************/
@@ -245,7 +310,7 @@ span.hostInfo {
 
 .table li {
     background-color: #F8F8F5;
-    border: 1px solid  #CECECE;
+    /*border: 1px solid  #CECECE;*/
     border-bottom: 0;
     padding: 0;
 }
@@ -256,7 +321,7 @@ span.hostInfo {
 }
 
 .table li:last-child {
-    border-bottom: 1px solid #CECECE;
+    /*border-bottom: 1px solid #CECECE;*/
 }
 
 .info-table {
@@ -309,7 +374,17 @@ span.hostInfo {
 .smalldivider {
     font-size: 10%;
     height: 2px;
-    background-color: #ddd !important;
+/*    background-color: #ddd !important;*/
+/*    background: -webkit-linear-gradient(left,white, blue, blue, white);  For Safari 5.1 to 6.0
+    background: -o-linear-gradient(left, white, blue, blue, white);  For Opera 11.1 to 12.0
+    background: -moz-linear-gradient(left, white, blue, blue, white);  For Fx 3.6 to 15
+    background: linear-gradient(to right, white, blue, blue, white);  Standard syntax (must be last) */
+
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(blue, white); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(blue, white); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(blue, white); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(blue, white); /* Standard syntax */
 }
 
 #playlistslist li a {
@@ -323,6 +398,9 @@ span.hostInfo {
 
 .albumli {
     padding-left: 5px;
+}
+.albumli a{
+    /*background-color: #ccf;*/
 }
 
 .playlistactive {
@@ -338,22 +416,24 @@ span.hostInfo {
 }
 
 .currenttrack2 {
-    background-image: url('../images/icons/play_alt_12x12.png');
-    background-repeat: no-repeat;
-    background-position: 4px 51%;
-}
-.currenttrack {
-    background-image: url('../images/icons/play_alt_16x16.png');
+    background-image: url('../images/eq_black.gif');
     background-repeat: no-repeat;
     background-color: #eee;
-    background-position: 4px 50%;
+    background-position: 0px 50%;
+}
+.currenttrack {
+    background-image: url('../images/eq_black.gif');
+    background-repeat: no-repeat;
+    background-color: #eee;
+    background-position: 0px 50%;
 }
 
 .currenttrack2 a {
-    margin-left: 15px;
+    margin-left: 40px;
 }
+
 .currenttrack a {
-    margin-left: 20px;
+    margin-left: 40px;
 }
 
 .song .moreBtn {
@@ -519,7 +599,7 @@ span.hostInfo {
 .ui-icon-play,
 .ui-icon-playNext,
 .ui-icon-add,
-.ui-icon-addAll, 
+.ui-icon-addAll,
 .ui-icon-remove {
     background-color: unset;
     background-image: none;
@@ -600,9 +680,9 @@ a {
 }
 
 .playicon {
-    width: 10%;
+    width: 15%;
     float: right;
-    text-align: right;
+    text-align: center;
 }
 
 #btplay {
@@ -611,7 +691,7 @@ a {
 
 .songinfo {
     height: 100%;
-    width: 90%;
+    width: 85%;
     float: left;
 }
 
@@ -696,7 +776,7 @@ a {
         height: 50px;
         line-height: 48px;
     }
-}
+}s
 
 /* disable text selection for mouse swipe */
 body * {
