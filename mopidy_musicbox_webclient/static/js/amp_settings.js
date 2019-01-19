@@ -31,7 +31,7 @@ var ampControl = {
         });
     },
 
-    getAllAmpSettings: function() {
+    _getAllAmpSettings: function() {
         var self = this;
         $('.amp-slider').each(function(){
             if ($(this).attr('id')) {
@@ -48,6 +48,52 @@ var ampControl = {
                 self.getSelect($(this).attr('id'));
             }
         });
+    },
+
+    getAllAmpSettings: function() {
+        var self = this;
+        var data = {slider: [], checkbox: [], select: []};
+
+        $('.amp-slider').each(function(){
+            if ($(this).attr('id')) {
+                data.slider.push($(this).attr('id'));
+            }
+        });
+        $('.amp-checkbox').each(function(){
+            if ($(this).attr('id')) {
+                data.checkbox.push($(this).attr('id'));
+            }
+        });
+        $('.amp-select').each(function() {
+            if ($(this).attr('id')) {
+                data.select.push($(this).attr('id'));
+            }
+        });
+
+        $.post(
+            self.settingsUrl,
+            {type: 'get', method: 'getAllAmpSettings', data: JSON.stringify(data)},
+            function(data, status){
+                if (status != 'success') {
+                    console.log(status);
+                    console.log(data);
+                    return;
+                }
+                data = JSON.parse(data);
+
+                data.slider.forEach(function(item){
+                    self.setSliderVal(item.id, item.value);
+                });
+
+                data.checkbox.forEach(function(item){
+                    self.updateCheckBox(item.id, item.value);
+                });
+
+                data.select.forEach(function(item){
+                    self.updateSelect($('#' + item.id), item.value);
+                });
+            }
+        );
     },
 
     // get slider value from server

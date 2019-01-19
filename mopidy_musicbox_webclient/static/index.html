@@ -572,12 +572,12 @@
             <div id="ampSettigsInputs" class="ampSettigsOptions">
                 <label for="MainSource" class="">Main input</label>
                 <select id="MainSource" class="amp-select" data-highlight="true" name="MainSource" data-mini="true">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <!--<option value="0">0</option>-->
+                    <!--<option value="1">1</option>-->
+                    <option value="2">Mopidy</option>
+                    <!--<option value="3">3</option>-->
+                    <option value="4">AUX</option>
+                    <!--<option value="5">5</option>-->
                 </select>
                 <label for="MainSourceGain" class="">Main Selector Input Gain:</label>
                 <input id="MainSourceGain" class="amp-slider" data-highlight="true" name="MainSourceGain" data-mini="true" type="range" min="0" value="0" max="15"/>
@@ -586,12 +586,12 @@
 
                 <label for="SecondSource" class="">Second input</label>
                 <select id="SecondSource" class="amp-select" data-highlight="true" name="SecondSource" data-mini="true">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                     <!--<option value="0">0</option>-->
+                    <!--<option value="1">1</option>-->
+                    <option value="2">Mopidy</option>
+                    <!--<option value="3">3</option>-->
+                    <option value="4">AUX</option>
+                    <!--<option value="5">5</option>-->
                 </select>
                 <label for="SecondSourceGain" class="">Second Selector Input Gain:</label>
                 <input id="SecondSourceGain" class="amp-slider" data-highlight="true" name="SecondSourceGain" data-mini="true" type="range" min="0" value="0" max="15"/>
@@ -611,7 +611,7 @@
             <div id="ampSettigsEq" class="ampSettigsOptions">
                 <h5>Treble:</h5>
                 <label for="Treble" class="">Treble Gain:</label>
-                <input id="Treble" class="amp-slider" data-highlight="true" name="Treble" data-mini="true" type="range" min="0" value="0" max="15"/>
+                <input id="Treble" class="amp-slider" data-highlight="true" name="Treble" data-mini="true" type="range" min="-15" value="0" max="15"/>
                 <label for="TrebleCenterFreq" class="">Treble Center Frequency:</label>
                 <select id="TrebleCenterFreq" class="amp-select" data-highlight="true" name="TrebleCenterFreq" data-mini="true">
                     <option value="0">10.0 KHz</option>
@@ -624,7 +624,7 @@
 
                 <h5>Middle:</h5>
                 <label for="Middle" class="">Middle Gain:</label>
-                <input id="Middle" class="amp-slider" data-highlight="true" name="Middle" data-mini="true" type="range" min="0" value="0" max="15"/>
+                <input id="Middle" class="amp-slider" data-highlight="true" name="Middle" data-mini="true" type="range" min="-15" value="0" max="15"/>
                 <label for="MiddleQFactor" class="">Middle Q Factor:</label>
                 <select id="MiddleQFactor" class="amp-select" data-highlight="true" name="MiddleQFactor" data-mini="true">
                     <option value="0">0.5</option>
@@ -637,7 +637,7 @@
 
                 <h5>Bass:</h5>
                 <label for="Bass" class="">Bass Gain:</label>
-                <input id="Bass" class="amp-slider" data-highlight="true" name="Bass" data-mini="true" type="range" min="0" value="0" max="15"/>
+                <input id="Bass" class="amp-slider" data-highlight="true" name="Bass" data-mini="true" type="range" min="-15" value="0" max="15"/>
                 <label for="BassQFactor" class="">Bass Q Factor:</label>
                 <select id="BassQFactor" class="amp-select" data-highlight="true" name="BassQFactor" data-mini="true">
                     <option value="0">0.5</option>
@@ -658,7 +658,7 @@
             </div>
             <div id="ampSettigsLoudness" class="ampSettigsOptions">
                 <label for="Loudness" class="">Loudness Gain:</label>
-                <input id="Loudness" class="amp-slider" data-highlight="true" name="Loudness" data-mini="true" type="range" min="0" value="0" max="100"/>
+                <input id="Loudness" class="amp-slider" data-highlight="true" name="Loudness" data-mini="true" type="range" min="0" value="0" max="15"/>
                 <label for="LoudnessFreq" class="">Loudness Center Frequency:</label>
                 <select id="LoudnessFreq" class="amp-select" data-highlight="true" name="LoudnessFreq" data-mini="true">
                     <option value="0">Flat</option>
